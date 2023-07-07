@@ -13,7 +13,7 @@ import NewGame from "./routes/new-game/new-game.component";
 import ContinueGame from "./routes/continue-game/continue-game.component";
 import Gameroom from "./routes/gameroom/gameroom.component";
 const App = () => {
-  // const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState([]);
   // const [roundScores, setRoundScores] = useState([]);
   //
   // const handlePlayerAddition = (name) => {
@@ -43,11 +43,20 @@ const App = () => {
 
       <Routes>
         <Route index element={<Start />} />
-        <Route path="/new" element={<NewGame />} />
-        <Route path="/continue" element={<ContinueGame />} />
+        <Route
+          path="/new"
+          element={<NewGame players={players} setPlayers={setPlayers} />}
+        />
+        <Route
+          path="/continue"
+          element={<ContinueGame players={players} setPlayers={setPlayers} />}
+        />
 
         {/*GameRoom*/}
-        <Route path="/gameroom/:roomName" element={<Gameroom />} />
+        <Route
+          path="/gameroom/:roomName"
+          element={<Gameroom players={players} setPlayers={setPlayers} />}
+        />
       </Routes>
     </div>
   );

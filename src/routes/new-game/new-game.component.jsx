@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FormInput from "../../components/form-input/form-input.component";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/button.component";
 
-const NewGame = () => {
+import "./new-game.styles.scss";
+
+const NewGame = ({ players, setPlayers }) => {
   const [roomName, setRoomName] = useState("");
+  const [playerName, setPlayerName] = useState("");
 
   const navigate = useNavigate();
+
+  const handlePlayerName = (event) => {
+    const { value } = event.target;
+    setPlayerName(value);
+  };
+
+  const handleAddPlayer = (event) => {
+    event.preventDefault();
+
+    setPlayers([...players, { name: playerName }]);
+    setPlayerName("");
+  };
 
   const handleChange = (event) => {
     const { value } = event.target;
     setRoomName(value);
-    console.log(roomName);
   };
 
   const handleSubmit = (event) => {
@@ -23,7 +37,24 @@ const NewGame = () => {
 
   return (
     <div className="new-game-container">
-      <h2>this is new game</h2>
+      <h2>Add Players</h2>
+      <ul>
+        {players.map((player, index) => (
+          <li key={index}>
+            Player {index + 1}: {player.name}
+          </li>
+        ))}
+      </ul>
+      <div className="add-player-container">
+        <form onSubmit={handleAddPlayer}>
+          <FormInput
+            label="Player Name"
+            value={playerName}
+            onChange={handlePlayerName}
+          />
+          <Button type="submit">Add Player</Button>
+        </form>
+      </div>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Game Room Name"
