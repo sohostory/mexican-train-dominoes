@@ -1,0 +1,35 @@
+import "./standing.styles.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../components/button/button.component";
+
+const Standing = ({ players }) => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const { roomName } = params;
+
+  const currentStanding = players.sort((a, b) => {
+    return a.totalScore - b.totalScore;
+  });
+
+  const continueGame = () => {
+    navigate("/gameroom/:roomName");
+  };
+
+  return (
+    <div className="standing-container">
+      <h2>Standings</h2>
+      {currentStanding.map((player, index) => {
+        return (
+          <li key={index}>
+            {index + 1}: {player.name} {player.totalScore}
+          </li>
+        );
+      })}
+      <Button type="button" onClick={continueGame}>
+        Continue Game
+      </Button>
+    </div>
+  );
+};
+
+export default Standing;

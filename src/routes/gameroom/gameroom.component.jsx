@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import { useState } from "react";
 
@@ -7,6 +7,8 @@ import "./gameroom.styles.scss";
 import Button from "../../components/button/button.component";
 
 const Gameroom = ({ players, setPlayers }) => {
+  const navigate = useNavigate();
+
   const [round, setRound] = useState(12);
   const [roundScores, setRoundScores] = useState(
     Array(players.length).fill("")
@@ -25,11 +27,13 @@ const Gameroom = ({ players, setPlayers }) => {
     const updatedPlayers = players.map((player, index) => ({
       ...player,
       scores: [...player.scores, roundScores[index]],
+      totalScore: player.totalScore + parseInt(roundScores[index]),
     }));
     setPlayers(updatedPlayers);
     setRoundScores(Array(players.length).fill(""));
     setRound(round - 1);
     console.log(players);
+    navigate("standing");
   };
 
   return (

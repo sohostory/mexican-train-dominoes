@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import ScoreTracker from "./components/score-tracker/score-tracker";
-import GameBoard from "./components/game-board/game-board.components";
-import PlayerManagement from "./components/player-management/player-management.component";
-
 import Button from "./components/button/button.component";
 
 import "./App.css";
@@ -12,6 +8,7 @@ import Start from "./routes/start/start.component";
 import NewGame from "./routes/new-game/new-game.component";
 import ContinueGame from "./routes/continue-game/continue-game.component";
 import Gameroom from "./routes/gameroom/gameroom.component";
+import Standing from "./routes/standing/standing.component";
 const App = () => {
   const [players, setPlayers] = useState([]);
   // const [roundScores, setRoundScores] = useState([]);
@@ -56,6 +53,10 @@ const App = () => {
         <Route
           path="/gameroom/:roomName"
           element={<Gameroom players={players} setPlayers={setPlayers} />}
+        />
+        <Route
+          path="gameroom/:roomName/standing"
+          element={<Standing players={players} />}
         />
       </Routes>
     </div>

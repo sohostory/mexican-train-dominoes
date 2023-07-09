@@ -20,7 +20,7 @@ const NewGame = ({ players, setPlayers }) => {
   const handleAddPlayer = (event) => {
     event.preventDefault();
 
-    setPlayers([...players, { name: playerName, scores: [] }]);
+    setPlayers([...players, { name: playerName, scores: [], totalScore: 0 }]);
     setPlayerName("");
   };
 
