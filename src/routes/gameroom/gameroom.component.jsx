@@ -8,22 +8,28 @@ import Button from "../../components/button/button.component";
 
 const Gameroom = ({ players, setPlayers }) => {
   const [round, setRound] = useState(12);
-  const [roundScores, setRoundScores] = useState([]);
+  const [roundScores, setRoundScores] = useState(
+    Array(players.length).fill("")
+  );
 
   const params = useParams();
   const { roomName } = params;
 
-  const handleChange = (event) => {
-    const value = event.target;
-    setRoundScores([...roundScores, roundScores[]])
-  }
+  const handleChange = (event, index) => {
+    const { value } = event.target;
+    const updatedScores = [...roundScores];
+    updatedScores[index] = value;
+    setRoundScores(updatedScores);
+  };
   const endRound = () => {
-    players.map((player, index) => {
-      player.score.push(roundScores[index]);
-    });
-    console.log("players:", players);
-    setRoundScores([]);
+    const updatedPlayers = players.map((player, index) => ({
+      ...player,
+      scores: [...player.scores, roundScores[index]],
+    }));
+    setPlayers(updatedPlayers);
+    setRoundScores(Array(players.length).fill(""));
     setRound(round - 1);
+    console.log(players);
   };
 
   return (
@@ -36,7 +42,11 @@ const Gameroom = ({ players, setPlayers }) => {
             return (
               <li key={index}>
                 {player.name}
-                <FormInput label="Enter Score" value={roundScores[index]} onChange={handleChange}/>
+                <FormInput
+                  label="Enter Score"
+                  value={roundScores[index]}
+                  onChange={(event) => handleChange(event, index)}
+                />
               </li>
             );
           })}
