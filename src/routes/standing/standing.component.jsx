@@ -1,6 +1,7 @@
 import "./standing.styles.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button/button.component";
+import StandingList from "../../components/standing-list/standing-list.component";
 
 const Standing = ({ players }) => {
   const navigate = useNavigate();
@@ -12,19 +13,12 @@ const Standing = ({ players }) => {
   });
 
   const continueGame = () => {
-    navigate("/gameroom/:roomName");
+    navigate(`/gameroom/${roomName}`);
   };
 
   return (
     <div className="standing-container">
-      <h2>Standings</h2>
-      {currentStanding.map((player, index) => {
-        return (
-          <li key={index}>
-            {index + 1}: {player.name} {player.totalScore}
-          </li>
-        );
-      })}
+      <StandingList currentStanding={currentStanding} />
       <Button type="button" onClick={continueGame}>
         Continue Game
       </Button>

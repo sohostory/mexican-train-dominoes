@@ -6,10 +6,9 @@ import "./gameroom.styles.scss";
 
 import Button from "../../components/button/button.component";
 
-const Gameroom = ({ players, setPlayers }) => {
+const Gameroom = ({ players, setPlayers, round, setRound }) => {
   const navigate = useNavigate();
 
-  const [round, setRound] = useState(12);
   const [roundScores, setRoundScores] = useState(
     Array(players.length).fill("")
   );
@@ -36,6 +35,8 @@ const Gameroom = ({ players, setPlayers }) => {
     navigate("standing");
   };
 
+  const endGame = () => {};
+
   return (
     <div className="gameroom-container">
       <h3>Room Name: {roomName}</h3>
@@ -55,9 +56,15 @@ const Gameroom = ({ players, setPlayers }) => {
             );
           })}
         </ul>
-        <Button type="button" onClick={endRound}>
-          End Round
-        </Button>
+        {round !== 0 ? (
+          <Button type="button" onClick={endRound}>
+            End Round
+          </Button>
+        ) : (
+          <Button type="button" onClick={endGame}>
+            End Game
+          </Button>
+        )}
       </div>
     </div>
   );

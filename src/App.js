@@ -11,6 +11,8 @@ import Gameroom from "./routes/gameroom/gameroom.component";
 import Standing from "./routes/standing/standing.component";
 const App = () => {
   const [players, setPlayers] = useState([]);
+  const [round, setRound] = useState(12);
+
   // const [roundScores, setRoundScores] = useState([]);
   //
   // const handlePlayerAddition = (name) => {
@@ -52,11 +54,18 @@ const App = () => {
         {/*GameRoom*/}
         <Route
           path="/gameroom/:roomName"
-          element={<Gameroom players={players} setPlayers={setPlayers} />}
+          element={
+            <Gameroom
+              players={players}
+              setPlayers={setPlayers}
+              round={round}
+              setRound={setRound}
+            />
+          }
         />
         <Route
           path="gameroom/:roomName/standing"
-          element={<Standing players={players} />}
+          element={<Standing players={players} round={round} />}
         />
       </Routes>
     </div>
