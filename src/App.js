@@ -9,6 +9,7 @@ import NewGame from "./routes/new-game/new-game.component";
 import ContinueGame from "./routes/continue-game/continue-game.component";
 import Gameroom from "./routes/gameroom/gameroom.component";
 import Standing from "./routes/standing/standing.component";
+import EndGame from "./routes/end-game/end-game.component";
 const App = () => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(12);
@@ -66,6 +67,10 @@ const App = () => {
         <Route
           path="gameroom/:roomName/standing"
           element={<Standing players={players} round={round} />}
+        />
+        <Route
+          path="gameroom/:roomName/endgame"
+          element={<EndGame players={players} />}
         />
       </Routes>
     </div>

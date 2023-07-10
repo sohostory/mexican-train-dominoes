@@ -35,7 +35,9 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
     navigate("standing");
   };
 
-  const endGame = () => {};
+  const endGame = () => {
+    navigate("endgame");
+  };
 
   return (
     <div className="gameroom-container">
