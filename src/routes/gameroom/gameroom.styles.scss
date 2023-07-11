@@ -1,12 +1,15 @@
 .score-input-container {
-  display: flex;
   width: 400px;
 
 
   ul {
     list-style: none;
 
+
     li {
+      display: flex;
+      font-size: 16px;
+      flex-direction: row;
       text-align: left;
     }
   }

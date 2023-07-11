@@ -9,6 +9,7 @@ import "./new-game.styles.scss";
 const NewGame = ({ players, setPlayers }) => {
   const [roomName, setRoomName] = useState("");
   const [playerName, setPlayerName] = useState("");
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,8 +21,10 @@ const NewGame = ({ players, setPlayers }) => {
   const handleAddPlayer = (event) => {
     event.preventDefault();
 
-    setPlayers([...players, { name: playerName, scores: [], totalScore: 0 }]);
-    setPlayerName("");
+    if (playerName.trim() !== "") {
+      setPlayers([...players, { name: playerName, scores: [], totalScore: 0 }]);
+      setPlayerName("");
+    }
   };
 
   const handleChange = (event) => {
@@ -32,29 +35,37 @@ const NewGame = ({ players, setPlayers }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    navigate(`/gameroom/${roomName}`);
+    if (players.length > 0 && roomName.trim() !== "") {
+      setIsFormSubmitted(true);
+      navigate(`/gameroom/${roomName}`);
+    }
   };
 
   return (
     <div className="new-game-container">
       <h2>Add Players</h2>
-      <ul>
-        {players.map((player, index) => (
-          <li key={index}>
-            Player {index + 1}: {player.name}
-          </li>
-        ))}
-      </ul>
-      <div className="add-player-container">
-        <form onSubmit={handleAddPlayer}>
-          <FormInput
-            label="Player Name"
-            value={playerName}
-            onChange={handlePlayerName}
-          />
-          <Button type="submit">Add Player</Button>
-        </form>
-      </div>
+
+      {!isFormSubmitted && (
+        <>
+          <form onSubmit={handleAddPlayer}>
+            <FormInput
+              label="Player Name"
+              value={playerName}
+              onChange={handlePlayerName}
+            />
+            <Button type="submit">Add Player</Button>
+          </form>
+
+          <ul>
+            {players.map((player, index) => (
+              <li key={index}>
+                Player {index + 1}: {player.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Game Room Name"
