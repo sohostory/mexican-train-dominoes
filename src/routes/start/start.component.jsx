@@ -12,10 +12,15 @@ const Start = () => {
     navigate("/continue");
   };
 
+  const handleRules = () => {
+    navigate("/rules");
+  };
+
   return (
     <div className="buttons-container">
       <Button onClick={handleNewGame}>NEW GAME</Button>
       <Button onClick={handleContinue}>CONTINUE</Button>
+      <Button onClick={handleRules}>GAME RULES</Button>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import ContinueGame from "./routes/continue-game/continue-game.component";
 import Gameroom from "./routes/gameroom/gameroom.component";
 import Standing from "./routes/standing/standing.component";
 import EndGame from "./routes/end-game/end-game.component";
+import Rules from "./routes/rules/rules.components";
 const App = () => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(12);
@@ -32,7 +33,8 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Mexican Train Dominoes Score Keeper</h1>
+      <h1>Mexican Train</h1>
+      <h2>Score Tracker App</h2>
       {/*<PlayerManagement onPlayerAdd={handlePlayerAddition} />*/}
       {/*<ScoreTracker players={players} roundScores={roundScores} />*/}
       {/*<GameBoard*/}
@@ -51,6 +53,7 @@ const App = () => {
           path="/continue"
           element={<ContinueGame players={players} setPlayers={setPlayers} />}
         />
+        <Route path="/rules" element={<Rules />} />
 
         {/*GameRoom*/}
         <Route

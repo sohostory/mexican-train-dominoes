@@ -1,10 +1,40 @@
 import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./gameroom.styles.scss";
 
 import Button from "../../components/button/button.component";
+
+import double0 from "../../assets/dominoes/double0.gif";
+import double1 from "../../assets/dominoes/double1.gif";
+import double2 from "../../assets/dominoes/double2.gif";
+import double3 from "../../assets/dominoes/double3.gif";
+import double4 from "../../assets/dominoes/double4.gif";
+import double5 from "../../assets/dominoes/double5.gif";
+import double6 from "../../assets/dominoes/double6.gif";
+import double7 from "../../assets/dominoes/double7.gif";
+import double8 from "../../assets/dominoes/double8.gif";
+import double9 from "../../assets/dominoes/double9.gif";
+import double10 from "../../assets/dominoes/double10.gif";
+import double11 from "../../assets/dominoes/double11.gif";
+import double12 from "../../assets/dominoes/double12.gif";
+
+const doubleImages = {
+  0: double0,
+  1: double1,
+  2: double2,
+  3: double3,
+  4: double4,
+  5: double5,
+  6: double6,
+  7: double7,
+  8: double8,
+  9: double9,
+  10: double10,
+  11: double11,
+  12: double12,
+};
 
 const Gameroom = ({ players, setPlayers, round, setRound }) => {
   const navigate = useNavigate();
@@ -43,6 +73,9 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
     <div className="gameroom-container">
       <h3>Room Name: {roomName}</h3>
       <h3>Round: Double {round}</h3>
+      {doubleImages.hasOwnProperty(round) && (
+        <img src={doubleImages[round]} alt={`dominoes double ${round}`} />
+      )}
       <div className="score-input-container">
         <ul>
           {players.map((player, index) => {
