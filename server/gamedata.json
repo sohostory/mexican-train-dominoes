@@ -1,0 +1,7 @@
+[
+  {
+    "roomname": "test",
+    "round": 12,
+    "players": [{"John":  [2, 3]}, {"Jane":  [1, 0]}]
+  }
+]
