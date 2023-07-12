@@ -19,7 +19,7 @@ const EndGame = ({ players }) => {
   return (
     <Container>
       <Row className="mb-5">
-        <h3 className="text-center">Final Results</h3>
+        <h3 className="text-center fs-4">Final Results</h3>
       </Row>
       <Row>
         <StandingList currentStanding={finalStanding} />

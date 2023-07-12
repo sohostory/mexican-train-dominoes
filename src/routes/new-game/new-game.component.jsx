@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import FormInput from "../../components/form-input/form-input.component";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,8 @@ import { Col, Container, Row } from "react-bootstrap";
 const NewGame = ({ players, setPlayers, setRound }) => {
   const [roomName, setRoomName] = useState("");
   const [playerName, setPlayerName] = useState("");
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  let roundNum = 0;
 
   const navigate = useNavigate();
 
@@ -43,7 +40,6 @@ const NewGame = ({ players, setPlayers, setRound }) => {
     event.preventDefault();
     if (roomName !== "") {
       if (players.length > 1 && roomName.trim() !== "") {
-        setIsFormSubmitted(true);
         navigate(`/gameroom/${roomName}`);
       } else {
         setErrorMessage("Please add at least 2 players to start game.");
