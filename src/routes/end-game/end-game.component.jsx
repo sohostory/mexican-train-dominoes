@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import StandingList from "../../components/standing-list/standing-list.component";
 import Button from "../../components/button/button.component";
+import { Container, Row } from "react-bootstrap";
 
 const EndGame = ({ players }) => {
   const navigate = useNavigate();
@@ -16,13 +17,19 @@ const EndGame = ({ players }) => {
   };
 
   return (
-    <div className="end-game-container">
-      <h2>Final Results</h2>
-      <StandingList currentStanding={finalStanding} />
-      <Button type="button" onClick={newGame}>
-        Play New Game
-      </Button>
-    </div>
+    <Container>
+      <Row className="mb-5">
+        <h3 className="text-center">Final Results</h3>
+      </Row>
+      <Row>
+        <StandingList currentStanding={finalStanding} />
+      </Row>
+      <Row className="mt-5  justify-content-md-center">
+        <Button type="button" onClick={newGame}>
+          Play New Game
+        </Button>
+      </Row>
+    </Container>
   );
 };
 

@@ -1,7 +1,7 @@
-import "./standing.styles.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import StandingList from "../../components/standing-list/standing-list.component";
+import { Container, Row, Col } from "react-bootstrap";
 
 const Standing = ({ players }) => {
   const navigate = useNavigate();
@@ -17,12 +17,16 @@ const Standing = ({ players }) => {
   };
 
   return (
-    <div className="standing-container">
-      <StandingList currentStanding={currentStanding} />
-      <Button type="button" onClick={continueGame}>
-        Continue Game
-      </Button>
-    </div>
+    <Container>
+      <Row>
+        <StandingList currentStanding={currentStanding} />
+      </Row>
+      <Row className="mt-5  justify-content-md-center">
+        <Button type="button" onClick={continueGame}>
+          Continue Game
+        </Button>
+      </Row>
+    </Container>
   );
 };
 

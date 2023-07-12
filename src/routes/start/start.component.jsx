@@ -1,5 +1,6 @@
 import Button from "../../components/button/button.component";
 import { useNavigate } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Start = () => {
   const navigate = useNavigate();
@@ -12,16 +13,22 @@ const Start = () => {
     navigate("/continue");
   };
 
-  const handleRules = () => {
+  const handleGameRules = () => {
     navigate("/rules");
   };
 
   return (
-    <div className="buttons-container">
-      <Button onClick={handleNewGame}>NEW GAME</Button>
-      <Button onClick={handleContinue}>CONTINUE</Button>
-      <Button onClick={handleRules}>GAME RULES</Button>
-    </div>
+    <Container>
+      <Row className="justify-content-md-center">
+        <Button onClick={handleNewGame}>NEW GAME</Button>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Button onClick={handleContinue}>CONTINUE</Button>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Button onClick={handleGameRules}>GAME RULES</Button>
+      </Row>
+    </Container>
   );
 };
 

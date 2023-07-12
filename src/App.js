@@ -11,6 +11,7 @@ import Gameroom from "./routes/gameroom/gameroom.component";
 import Standing from "./routes/standing/standing.component";
 import EndGame from "./routes/end-game/end-game.component";
 import Rules from "./routes/rules/rules.components";
+import { Container, Row, Col } from "react-bootstrap";
 const App = () => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(12);
@@ -32,51 +33,53 @@ const App = () => {
   // };
 
   return (
-    <div className="app-container">
-      <h1>Mexican Train</h1>
-      <h2>Score Tracker App</h2>
-      {/*<PlayerManagement onPlayerAdd={handlePlayerAddition} />*/}
-      {/*<ScoreTracker players={players} roundScores={roundScores} />*/}
-      {/*<GameBoard*/}
-      {/*  players={players}*/}
-      {/*  onScoreUpdate={handleScoreUpdate}*/}
-      {/*  onRoundEnd={handleRoundEnd}*/}
-      {/*/>*/}
+    <Container className="bg-white p-5 border rounded align-items-center">
+      <Row className="justify-content-md-center mb-5">
+        <h1 className="text-center font-bold underline">Mexican Train</h1>
+        <h2 className="text-center mb-5">Score Tracker App</h2>
+        {/*<PlayerManagement onPlayerAdd={handlePlayerAddition} />*/}
+        {/*<ScoreTracker players={players} roundScores={roundScores} />*/}
+        {/*<GameBoard*/}
+        {/*  players={players}*/}
+        {/*  onScoreUpdate={handleScoreUpdate}*/}
+        {/*  onRoundEnd={handleRoundEnd}*/}
+        {/*/>*/}
 
-      <Routes>
-        <Route index element={<Start />} />
-        <Route
-          path="/new"
-          element={<NewGame players={players} setPlayers={setPlayers} />}
-        />
-        <Route
-          path="/continue"
-          element={<ContinueGame players={players} setPlayers={setPlayers} />}
-        />
-        <Route path="/rules" element={<Rules />} />
+        <Routes>
+          <Route index element={<Start />} />
+          <Route
+            path="/new"
+            element={<NewGame players={players} setPlayers={setPlayers} />}
+          />
+          <Route
+            path="/continue"
+            element={<ContinueGame players={players} setPlayers={setPlayers} />}
+          />
+          <Route path="/rules" element={<Rules />} />
 
-        {/*GameRoom*/}
-        <Route
-          path="/gameroom/:roomName"
-          element={
-            <Gameroom
-              players={players}
-              setPlayers={setPlayers}
-              round={round}
-              setRound={setRound}
-            />
-          }
-        />
-        <Route
-          path="gameroom/:roomName/standing"
-          element={<Standing players={players} round={round} />}
-        />
-        <Route
-          path="gameroom/:roomName/endgame"
-          element={<EndGame players={players} />}
-        />
-      </Routes>
-    </div>
+          {/*GameRoom*/}
+          <Route
+            path="/gameroom/:roomName"
+            element={
+              <Gameroom
+                players={players}
+                setPlayers={setPlayers}
+                round={round}
+                setRound={setRound}
+              />
+            }
+          />
+          <Route
+            path="gameroom/:roomName/standing"
+            element={<Standing players={players} round={round} />}
+          />
+          <Route
+            path="gameroom/:roomName/endgame"
+            element={<EndGame players={players} />}
+          />
+        </Routes>
+      </Row>
+    </Container>
   );
 };
 

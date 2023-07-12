@@ -2,8 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import { useEffect, useState } from "react";
 
-import "./gameroom.styles.scss";
-
 import Button from "../../components/button/button.component";
 
 import double0 from "../../assets/dominoes/double0.gif";
@@ -19,6 +17,7 @@ import double9 from "../../assets/dominoes/double9.gif";
 import double10 from "../../assets/dominoes/double10.gif";
 import double11 from "../../assets/dominoes/double11.gif";
 import double12 from "../../assets/dominoes/double12.gif";
+import { Container, Row, Col } from "react-bootstrap";
 
 const doubleImages = {
   0: double0,
@@ -70,27 +69,35 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
   };
 
   return (
-    <div className="gameroom-container">
-      <h3>Room Name: {roomName}</h3>
-      <h3>Round: Double {round}</h3>
-      {doubleImages.hasOwnProperty(round) && (
-        <img src={doubleImages[round]} alt={`dominoes double ${round}`} />
-      )}
-      <div className="score-input-container">
-        <ul>
-          {players.map((player, index) => {
-            return (
-              <li key={index}>
-                {player.name}
-                <FormInput
-                  label="Enter Score"
-                  value={roundScores[index]}
-                  onChange={(event) => handleChange(event, index)}
-                />
-              </li>
-            );
-          })}
-        </ul>
+    <Container>
+      <Row>
+        <h3 className="text-center">Room Name: {roomName}</h3>
+        <h3 className="text-center">Round: Double {round}</h3>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          {doubleImages.hasOwnProperty(round) && (
+            <img src={doubleImages[round]} alt={`dominoes double ${round}`} />
+          )}
+        </Col>
+      </Row>
+
+      {players.map((player, index) => {
+        return (
+          <Row>
+            <Col key={index}>{player.name}</Col>
+            <Col xs={6}>
+              <FormInput
+                label="Enter Score"
+                value={roundScores[index]}
+                onChange={(event) => handleChange(event, index)}
+              />
+            </Col>
+          </Row>
+        );
+      })}
+
+      <Row className="mt-5 justify-content-md-center">
         {round !== 0 ? (
           <Button type="button" onClick={endRound}>
             End Round
@@ -100,8 +107,8 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
             End Game
           </Button>
         )}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

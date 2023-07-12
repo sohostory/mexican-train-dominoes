@@ -4,8 +4,6 @@ import FormInput from "../../components/form-input/form-input.component";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/button.component";
 
-import "./new-game.styles.scss";
-
 const NewGame = ({ players, setPlayers }) => {
   const [roomName, setRoomName] = useState("");
   const [playerName, setPlayerName] = useState("");
