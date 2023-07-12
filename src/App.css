@@ -5,19 +5,19 @@ li {
 img {
     width: 100px;
 }
-/*.app-container {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  width: 600px;*/
-/*  height: 1000px;*/
-/*  margin: 30px auto;*/
-/*  border: 1px solid lightgrey;*/
-/*  border-radius: 15px;*/
-/*  padding: 50px;*/
-/*  background-color: white;*/
-/*  box-shadow: 5px 5px 3px lightgrey;*/
-/*  text-align: center;*/
-/*}*/
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  height: 1000px;
+  margin: 30px auto;
+  border: 1px solid lightgrey;
+  border-radius: 15px;
+  padding: 50px;
+  background-color: white;
+  box-shadow: 5px 5px 3px lightgrey;
+  text-align: center;
+}
 
 /*.buttons-container {*/
 /*  display: flex;*/

@@ -20,13 +20,19 @@ const Start = () => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <Button onClick={handleNewGame}>NEW GAME</Button>
+        <Col lg={4}>
+          <Button onClick={handleNewGame}>NEW GAME</Button>
+        </Col>
       </Row>
       <Row className="justify-content-md-center">
-        <Button onClick={handleContinue}>CONTINUE</Button>
+        <Col lg={4}>
+          <Button onClick={handleContinue}>CONTINUE</Button>
+        </Col>
       </Row>
       <Row className="justify-content-md-center">
-        <Button onClick={handleGameRules}>GAME RULES</Button>
+        <Col lg={4}>
+          <Button onClick={handleGameRules}>GAME RULES</Button>
+        </Col>
       </Row>
     </Container>
   );

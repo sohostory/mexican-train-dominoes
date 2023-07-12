@@ -21,10 +21,12 @@ const Standing = ({ players }) => {
       <Row>
         <StandingList currentStanding={currentStanding} />
       </Row>
-      <Row className="mt-5  justify-content-md-center">
-        <Button type="button" onClick={continueGame}>
-          Continue Game
-        </Button>
+      <Row className="mt-5 justify-content-md-center">
+        <Col lg={4}>
+          <Button type="button" onClick={continueGame}>
+            Continue Game
+          </Button>
+        </Col>
       </Row>
     </Container>
   );

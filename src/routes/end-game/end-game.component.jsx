@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import StandingList from "../../components/standing-list/standing-list.component";
 import Button from "../../components/button/button.component";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const EndGame = ({ players }) => {
   const navigate = useNavigate();
@@ -25,9 +25,11 @@ const EndGame = ({ players }) => {
         <StandingList currentStanding={finalStanding} />
       </Row>
       <Row className="mt-5  justify-content-md-center">
-        <Button type="button" onClick={newGame}>
-          Play New Game
-        </Button>
+        <Col lg={4}>
+          <Button type="button" onClick={newGame}>
+            Play New Game
+          </Button>
+        </Col>
       </Row>
     </Container>
   );
