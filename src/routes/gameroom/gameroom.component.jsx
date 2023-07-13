@@ -20,6 +20,7 @@ import double10 from "../../assets/dominoes/double10.gif";
 import double11 from "../../assets/dominoes/double11.gif";
 import double12 from "../../assets/dominoes/double12.gif";
 import { Container, Row, Col } from "react-bootstrap";
+import StandingList from "../../components/standing-list/standing-list.component";
 
 const doubleImages = {
   0: double0,
@@ -68,13 +69,16 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
       }));
 
       // Send the updated players data to the server
-      await axios.put(`/api/gameroom/${roomName}`, { players: updatedPlayers });
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/api/gameroom/${roomName}`,
+        { players: updatedPlayers }
+      );
 
       setPlayers(updatedPlayers);
       setRoundScores(Array(players.length).fill(""));
       setRound(round - 1);
       console.log(players);
-      navigate("standing");
+      // navigate("standing");
     } catch (error) {
       console.error("Error updating scores:", error);
       setErrorMessage(
@@ -82,6 +86,10 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
       );
     }
   };
+
+  const currentStanding = players.sort((a, b) => {
+    return a.totalScore - b.totalScore;
+  });
 
   const endGame = async () => {
     try {
@@ -102,49 +110,61 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
 
   return (
     <Container>
-      <Row>
-        <h3 className="text-center fs-5">Room Name: {roomName}</h3>
-        <h3 className="text-center fs-5">Round: Double {round}</h3>
-      </Row>
-      <Row className="justify-content-md-center mb-5">
-        <Col md="auto">
-          {doubleImages.hasOwnProperty(round) && (
-            <img src={doubleImages[round]} alt={`dominoes double ${round}`} />
-          )}
-        </Col>
-      </Row>
-
-      {players.map((player, index) => {
-        return (
-          <Row className="justify-content-md-center align-items-center">
-            <Col key={index} lg={3} className="text-start">
-              {player.name}
-            </Col>
-            <Col lg={2}>
-              <FormNumber
-                label="Enter Score"
-                value={roundScores[index]}
-                onChange={(event) => handleChange(event, index)}
-              />
+      <Row className="d-flex align-items-start p-3">
+        <Col className="border-end border-dark-subtle border-2">
+          <Row>
+            <h3 className="text-center fs-5">Room Name: {roomName}</h3>
+            <h3 className="text-center fs-5">Round: Double {round}</h3>
+          </Row>
+          <Row className="justify-content-md-center mb-5">
+            <Col md="auto">
+              {doubleImages.hasOwnProperty(round) && (
+                <img
+                  src={doubleImages[round]}
+                  alt={`dominoes double ${round}`}
+                />
+              )}
             </Col>
           </Row>
-        );
-      })}
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message mt-3">{errorMessage}</p>}
+          {players.map((player, index) => {
+            return (
+              <Row className="justify-content-md-center align-items-center">
+                <Col key={index} lg={3} className="text-start">
+                  {player.name}
+                </Col>
+                <Col lg={3}>
+                  <FormNumber
+                    label="Enter Score"
+                    value={roundScores[index]}
+                    onChange={(event) => handleChange(event, index)}
+                  />
+                </Col>
+              </Row>
+            );
+          })}
 
-      <Row className="mt-5 justify-content-md-center">
-        <Col lg={4}>
-          {round !== 0 ? (
-            <Button type="button" onClick={endRound}>
-              End Round
-            </Button>
-          ) : (
-            <Button type="button" onClick={endGame}>
-              End Game
-            </Button>
+          {successMessage && (
+            <p className="success-message">{successMessage}</p>
           )}
+          {errorMessage && <p className="error-message mt-3">{errorMessage}</p>}
+
+          <Row className="mt-5 justify-content-md-center">
+            <Col lg={6}>
+              {round !== 0 ? (
+                <Button type="button" onClick={endRound}>
+                  End Round
+                </Button>
+              ) : (
+                <Button type="button" onClick={endGame}>
+                  End Game
+                </Button>
+              )}
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <StandingList currentStanding={currentStanding} />
         </Col>
       </Row>
     </Container>

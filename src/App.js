@@ -18,9 +18,6 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1 className="text-center font-bold underline">Mexican Train</h1>
-      <h2 className="text-center mb-5">Score Tracker App</h2>
-
       <Routes>
         <Route index element={<Start />} />
         <Route

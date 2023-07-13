@@ -6,7 +6,7 @@
   line-height: 50px;
   padding: 0 35px 0 35px;
   font-size: 15px;
-  background-color: black;
+  background-color: #394867;
   color: white;
   text-transform: uppercase;
   font-family: "Open Sans";
@@ -18,19 +18,19 @@
   margin-bottom: 10px;
 
   &:hover {
-    background-color: white;
+    background-color: #F1F6F9;
     color: black;
     border: 1px solid black;
   }
 
 
   &.inverted {
-    background-color: white;
+    background-color: #F1F6F9;
     color: black;
     border: 1px solid black;
 
     &:hover {
-      background-color: black;
+      background-color: #394867;
       color: white;
       border: none;
     }

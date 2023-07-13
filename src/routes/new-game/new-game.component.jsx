@@ -52,7 +52,7 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
 
     try {
       // Send the new game room data to the server
-      await axios.post("/api/gameroom", {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/gameroom`, {
         roomName,
         round,
         players,
@@ -69,81 +69,95 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
 
   return (
     <Container>
-      <Row>
-        <h3 className="text-center fs-4">Start a new game</h3>
-        <h3 className="text-center fs-5">Add players</h3>
-      </Row>
-
-      <form onSubmit={handleAddPlayer} className="mt-5">
-        <Row className="justify-content-md-center mb-5">
-          <Col lg={5}>
-            <FormInput
-              label="Player Name"
-              value={playerName}
-              onChange={handlePlayerName}
-            />
-          </Col>
-          <Col lg={4}>
-            <Button type="submit">Add Player</Button>
-          </Col>
-        </Row>
-      </form>
-      {players.map((player, index) => {
-        return (
-          <Row className="justify-content-md-center">
-            <Col lg={2}>Player {index + 1}:</Col>{" "}
-            <Col lg={2} className="text-start">
-              {player.name}
-            </Col>
+      <Row className="d-flex align-items-start p-3">
+        <Col className="border-end border-dark-subtle border-2">
+          <Row>
+            <h3 className="text-center fs-4">Start a new game</h3>
+            <h3 className="text-center fs-5">Add players</h3>
           </Row>
-        );
-      })}
 
-      <form onSubmit={handleSubmit} className="mt-5">
-        <Row className="justify-content-md-center mb-3 mt-5">
-          {players.length < 5 && (
-            <Col lg={2}>
-              <label>
-                <input
-                  type="radio"
-                  name="roundNum"
-                  value={9}
-                  onChange={handleRound}
+          <form onSubmit={handleAddPlayer} className="mt-5">
+            <Row className="justify-content-md-center mb-5">
+              <Col lg={5}>
+                <FormInput
+                  label="Player Name"
+                  value={playerName}
+                  onChange={handlePlayerName}
                 />
-                9 Rounds
-              </label>
-            </Col>
+              </Col>
+              <Col lg={5}>
+                <Button type="submit">Add Player</Button>
+              </Col>
+            </Row>
+          </form>
+
+          <form onSubmit={handleSubmit} className="mt-5">
+            <Row className="justify-content-md-center mb-3 mt-5">
+              {players.length < 5 && (
+                <Col lg={2}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roundNum"
+                      value={9}
+                      onChange={handleRound}
+                    />
+                    9 Rounds
+                  </label>
+                </Col>
+              )}
+
+              <Col lg={2}>
+                <label>
+                  <input
+                    defaultChecked
+                    type="radio"
+                    name="roundNum"
+                    value={12}
+                    onChange={handleRound}
+                  />
+                  12 Rounds
+                </label>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col lg={5}>
+                <FormInput
+                  label="Game Room Name"
+                  value={roomName}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col lg={5}>
+                <Button type="submit">Start Game</Button>
+              </Col>
+            </Row>
+          </form>
+
+          {successMessage && (
+            <p className="success-message">{successMessage}</p>
           )}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </Col>
 
-          <Col lg={2}>
-            <label>
-              <input
-                defaultChecked
-                type="radio"
-                name="roundNum"
-                value={12}
-                onChange={handleRound}
-              />
-              12 Rounds
-            </label>
-          </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col lg={5}>
-            <FormInput
-              label="Game Room Name"
-              value={roomName}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col lg={4}>
-            <Button type="submit">Start Game</Button>
-          </Col>
-        </Row>
-      </form>
-
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <Col className="mb-5">
+          <div>
+            <h3>Players:</h3>
+            {players.map((player, index) => {
+              return (
+                <Row className="justify-content-md-center">
+                  <Col className="justify-content-md-start" lg={3}>
+                    Player {index + 1}:
+                  </Col>{" "}
+                  <Col lg={3} className="text-start">
+                    {player.name}
+                  </Col>
+                </Row>
+              );
+            })}
+          </div>
+        </Col>
+      </Row>
 
       {/*<Row>*/}
       {/*  <Col>12 <form>12</form></Col>*/}

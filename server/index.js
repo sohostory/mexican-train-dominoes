@@ -32,9 +32,7 @@ const errorHandler = (error, req, res, next) => {
   res.status(500).json({ error: "Internal server error" });
 };
 
-const router = express.Router();
-
-router.get("/:roomname", async (req, res) => {
+app.get("/api/gameroom/:roomname", async (req, res) => {
   const { roomname } = req.params;
   const gamedata = await loadGameData();
   const gameRoom = gamedata.find((room) => room.roomname === roomname);
@@ -46,16 +44,16 @@ router.get("/:roomname", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  const { roomname } = req.body;
+app.post("/api/gameroom", async (req, res) => {
+  const { roomName, round, players } = req.body;
 
-  if (!roomname) {
+  if (!roomName) {
     res.status(400).json({ error: "Room name is required" });
     return;
   }
 
   const gamedata = await loadGameData();
-  const existingRoom = gamedata.find((room) => room.roomname === roomname);
+  const existingRoom = gamedata.find((room) => room.roomname === roomName);
 
   if (existingRoom) {
     res.status(400).json({ error: "Room name already exists" });
@@ -63,9 +61,13 @@ router.post("/", async (req, res) => {
   }
 
   const newGameRoom = {
-    roomname,
-    round: 12,
-    players: [],
+    roomname: roomName,
+    round: round,
+    players: players.map((player) => ({
+      name: player.name,
+      scores: [],
+      totalScore: 0,
+    })),
   };
 
   gamedata.push(newGameRoom);
@@ -73,9 +75,9 @@ router.post("/", async (req, res) => {
   res.status(201).json(newGameRoom);
 });
 
-router.put("/:roomname", async (req, res) => {
+app.put("/api/gameroom/:roomname", async (req, res) => {
   const { roomname } = req.params;
-  const { round } = req.body;
+  const { players } = req.body;
 
   const gamedata = await loadGameData();
   const gameRoom = gamedata.find((room) => room.roomname === roomname);
@@ -85,55 +87,11 @@ router.put("/:roomname", async (req, res) => {
     return;
   }
 
-  gameRoom.round = round;
+  gameRoom.players = players;
   await saveGameData(gamedata);
   res.json(gameRoom);
 });
 
-router.put("/:roomname/players/:playerName", async (req, res) => {
-  const { roomname, playerName } = req.params;
-  const { scores } = req.body;
-
-  const gamedata = await loadGameData();
-  const gameRoom = gamedata.find((room) => room.roomname === roomname);
-
-  if (!gameRoom) {
-    res.status(404).json({ error: "Game room not found" });
-    return;
-  }
-
-  const player = gameRoom.players.find((p) => p.name === playerName);
-
-  if (!player) {
-    res.status(404).json({ error: "Player not found" });
-    return;
-  }
-
-  player.scores = scores;
-  await saveGameData(gamedata);
-  res.json(gameRoom);
-});
-
-router.delete("/:roomname", async (req, res) => {
-  const { roomname } = req.params;
-
-  const gamedata = await loadGameData();
-  const index = gamedata.findIndex((room) => room.roomname === roomname);
-
-  if (index === -1) {
-    res.status(404).json({ error: "Game room not found" });
-    return;
-  }
-
-  gamedata.splice(index, 1);
-  await saveGameData(gamedata);
-  res.json({ success: true });
-});
-
-app.use("/api/gameroom", router);
-app.use(errorHandler);
-
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+app.listen(4000, () => {
+  console.log("Server started on port 4000");
 });

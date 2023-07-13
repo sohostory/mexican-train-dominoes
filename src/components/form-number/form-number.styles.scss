@@ -11,16 +11,16 @@ $main-color: black;
 
   .form-input {
     background: none;
-    background-color: white;
+    background-color: #F1F6F9;
     color: $sub-color;
-    font-size: 18px;
-    padding: 10px 0px 10px 0px;
+    font-size: 16px;
+    padding: 5px 0 5px 5px;
     display: block;
     width: 100%;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid $sub-color;
-    margin: 0px 0px;
+    margin: 10px 0px;
 
     &:focus {
       outline: none;

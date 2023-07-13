@@ -2,6 +2,43 @@
   {
     "roomname": "test",
     "round": 10,
-    "players": [{"name": "John", "scores": [2, 3]}, {"name":"Jane", "scores": [1, 0]}]
+    "players": [
+      {
+        "name": "John",
+        "scores": [
+          2,
+          3
+        ]
+      },
+      {
+        "name": "Jane",
+        "scores": [
+          1,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "roomname": "test1",
+    "round": 12,
+    "players": [
+      {
+        "name": "abe",
+        "scores": [
+          "1",
+          "2"
+        ],
+        "totalScore": 3
+      },
+      {
+        "name": "yun",
+        "scores": [
+          "2",
+          "1"
+        ],
+        "totalScore": 3
+      }
+    ]
   }
 ]
