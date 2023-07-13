@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Button from "./components/button/button.component";
 
@@ -16,33 +16,10 @@ const App = () => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(12);
 
-  // const [roundScores, setRoundScores] = useState([]);
-  //
-  // const handlePlayerAddition = (name) => {
-  //   setPlayers([...players, { name, scores: [] }]);
-  // };
-  //
-  // const handleScoreUpdate = (playerIndex, score) => {
-  //   const updatedPlayers = [...players];
-  //   updatedPlayers[playerIndex].scores.push(score);
-  //   setPlayers(updatedPlayers);
-  // };
-  //
-  // const handleRoundEnd = () => {
-  //   setRoundScores([...roundScores, players.map((player) => player.scores)]);
-  // };
-
   return (
     <div className="app-container">
       <h1 className="text-center font-bold underline">Mexican Train</h1>
       <h2 className="text-center mb-5">Score Tracker App</h2>
-      {/*<PlayerManagement onPlayerAdd={handlePlayerAddition} />*/}
-      {/*<ScoreTracker players={players} roundScores={roundScores} />*/}
-      {/*<GameBoard*/}
-      {/*  players={players}*/}
-      {/*  onScoreUpdate={handleScoreUpdate}*/}
-      {/*  onRoundEnd={handleRoundEnd}*/}
-      {/*/>*/}
 
       <Routes>
         <Route index element={<Start />} />
@@ -52,17 +29,17 @@ const App = () => {
             <NewGame
               players={players}
               setPlayers={setPlayers}
+              round={round}
               setRound={setRound}
             />
           }
         />
         <Route
           path="/continue"
-          element={<ContinueGame players={players} setPlayers={setPlayers} />}
+          element={<ContinueGame setPlayers={setPlayers} setRound={setRound} />}
         />
         <Route path="/rules" element={<Rules />} />
 
-        {/*GameRoom*/}
         <Route
           path="/gameroom/:roomName"
           element={

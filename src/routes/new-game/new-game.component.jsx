@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 import FormInput from "../../components/form-input/form-input.component";
@@ -5,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import { Col, Container, Row } from "react-bootstrap";
 
-const NewGame = ({ players, setPlayers, setRound }) => {
+const NewGame = ({ players, setPlayers, round, setRound }) => {
   const [roomName, setRoomName] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -36,16 +37,33 @@ const NewGame = ({ players, setPlayers, setRound }) => {
     const { value } = event.target;
     setRound(value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (roomName !== "") {
-      if (players.length > 1 && roomName.trim() !== "") {
-        navigate(`/gameroom/${roomName}`);
-      } else {
-        setErrorMessage("Please add at least 2 players to start game.");
-      }
-    } else {
+
+    if (roomName === "") {
       setErrorMessage("Please add a name for the room");
+      return;
+    }
+
+    if (players.length < 2) {
+      setErrorMessage("Please add at least 2 players to start the game.");
+      return;
+    }
+
+    try {
+      // Send the new game room data to the server
+      await axios.post("/api/gameroom", {
+        roomName,
+        round,
+        players,
+      });
+
+      navigate(`/gameroom/${roomName}`);
+    } catch (error) {
+      console.error("Error creating game room:", error);
+      setErrorMessage(
+        "An error occurred while creating the game room. Please try again."
+      );
     }
   };
 

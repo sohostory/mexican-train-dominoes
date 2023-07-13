@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import StandingList from "../../components/standing-list/standing-list.component";
 import Button from "../../components/button/button.component";
@@ -12,8 +13,17 @@ const EndGame = ({ players }) => {
     return a.totalScore - b.totalScore;
   });
 
-  const newGame = () => {
-    navigate("/new");
+  const newGame = async () => {
+    try {
+      // Send the request to delete the game room
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/api/gameroom/${roomName}`
+      );
+      navigate("/new");
+    } catch (error) {
+      console.error("Error deleting game room:", error);
+      // Handle the error accordingly
+    }
   };
 
   return (

@@ -13,7 +13,7 @@ const Standing = ({ players }) => {
   });
 
   const continueGame = () => {
-    navigate(`/gameroom/${roomName}`);
+    navigate(`${process.env.REACT_APP_SERVER_URL}/gameroom/${roomName}`);
   };
 
   return (

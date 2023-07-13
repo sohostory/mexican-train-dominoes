@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import FormNumber from "../../components/form-number/form-number.component";
@@ -54,26 +55,49 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
     updatedScores[index] = value;
     setRoundScores(updatedScores);
   };
-  const endRound = () => {
+  const endRound = async () => {
     if (roundScores.some((score) => score === "")) {
       setErrorMessage("Please enter scores for all players.");
       return;
     }
+    try {
+      const updatedPlayers = players.map((player, index) => ({
+        ...player,
+        scores: [...player.scores, roundScores[index]],
+        totalScore: player.totalScore + parseInt(roundScores[index]),
+      }));
 
-    const updatedPlayers = players.map((player, index) => ({
-      ...player,
-      scores: [...player.scores, roundScores[index]],
-      totalScore: player.totalScore + parseInt(roundScores[index]),
-    }));
-    setPlayers(updatedPlayers);
-    setRoundScores(Array(players.length).fill(""));
-    setRound(round - 1);
-    console.log(players);
-    navigate("standing");
+      // Send the updated players data to the server
+      await axios.put(`/api/gameroom/${roomName}`, { players: updatedPlayers });
+
+      setPlayers(updatedPlayers);
+      setRoundScores(Array(players.length).fill(""));
+      setRound(round - 1);
+      console.log(players);
+      navigate("standing");
+    } catch (error) {
+      console.error("Error updating scores:", error);
+      setErrorMessage(
+        "An error occurred while updating scores. Please try again."
+      );
+    }
   };
 
-  const endGame = () => {
-    navigate("endgame");
+  const endGame = async () => {
+    try {
+      // Send the final players data to the server
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/api/gameroom/${roomName}`,
+        { players }
+      );
+
+      navigate("endgame");
+    } catch (error) {
+      console.error("Error ending game:", error);
+      setErrorMessage(
+        "An error occurred while ending the game. Please try again."
+      );
+    }
   };
 
   return (
