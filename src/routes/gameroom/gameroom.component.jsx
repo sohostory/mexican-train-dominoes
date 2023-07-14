@@ -47,6 +47,8 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
   );
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [calculatorVisible, setCalculatorVisible] = useState(false);
+  const [standingListVisible, setStandingListVisible] = useState(true);
 
   const params = useParams();
   const { roomName } = params;
@@ -116,6 +118,11 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
     }
   };
 
+  const toggleCalculatorVisibility = () => {
+    setCalculatorVisible(!calculatorVisible);
+    setStandingListVisible(!standingListVisible);
+  };
+
   return (
     <Container>
       <Row className="d-flex align-items-start p-3">
@@ -139,7 +146,7 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
             return (
               <Row
                 key={index}
-                className="justify-content-md-center align-items-center"
+                className="justify-content-md-center align-items-end"
               >
                 <Col
                   key={index}
@@ -180,9 +187,20 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
           </Row>
         </Col>
         <Col>
-          <StandingList currentStanding={currentStanding} />
+          {standingListVisible && (
+            <StandingList currentStanding={currentStanding} />
+          )}
 
-          <DominoCalculator />
+          {calculatorVisible && (
+            <DominoCalculator calculatorVisible={calculatorVisible} />
+          )}
+
+          <Button
+            className="position-absolute bottom-0 end-0 m-3"
+            onClick={toggleCalculatorVisibility}
+          >
+            Calculator
+          </Button>
         </Col>
       </Row>
     </Container>
