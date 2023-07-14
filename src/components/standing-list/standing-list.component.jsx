@@ -8,7 +8,7 @@ const StandingList = ({ currentStanding }) => {
       </Row>
       {currentStanding.map(function Component(props, context) {
         return (
-          <Row className=" justify-content-md-center">
+          <Row key={props.name} className=" justify-content-md-center">
             <Col lg={1}>{context + 1}: </Col>
             <Col lg={4} className="text-start">
               {props.name}

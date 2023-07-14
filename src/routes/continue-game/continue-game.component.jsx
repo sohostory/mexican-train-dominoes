@@ -42,7 +42,7 @@ const ContinueGame = ({ setPlayers, setRound }) => {
 
       // Extract the necessary data from the response
       const { round, players } = gameRoomData;
-
+      console.log("players:", players);
       // Update the players
       setPlayers(players);
       // Update the round number

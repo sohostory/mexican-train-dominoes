@@ -92,6 +92,22 @@ app.put("/api/gameroom/:roomname", async (req, res) => {
   res.json(gameRoom);
 });
 
+app.delete("/api/gameroom/:roomname", async (req, res) => {
+  const { roomname } = req.params;
+
+  const gamedata = await loadGameData();
+  const index = gamedata.findIndex((room) => room.roomname === roomname);
+
+  if (index === -1) {
+    res.status(404).json({ error: "Game room not found" });
+    return;
+  }
+
+  gamedata.splice(index, 1);
+  await saveGameData(gamedata);
+  res.json({ success: true });
+});
+
 app.listen(4000, () => {
   console.log("Server started on port 4000");
 });

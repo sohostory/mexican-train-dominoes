@@ -69,8 +69,8 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
 
   return (
     <Container>
-      <Row className="d-flex align-items-start p-3">
-        <Col className="border-end border-dark-subtle border-2">
+      <Row className="d-flex align-items-start p-3 h-100">
+        <Col className="border-end border-dark-subtle border-2 h-100">
           <Row>
             <h3 className="text-center fs-4">Start a new game</h3>
             <h3 className="text-center fs-5">Add players</h3>
@@ -94,9 +94,10 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
           <form onSubmit={handleSubmit} className="mt-5">
             <Row className="justify-content-md-center mb-3 mt-5">
               {players.length < 5 && (
-                <Col lg={2}>
+                <Col lg={3}>
                   <label>
                     <input
+                      className="me-2"
                       type="radio"
                       name="roundNum"
                       value={9}
@@ -107,10 +108,11 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
                 </Col>
               )}
 
-              <Col lg={2}>
+              <Col lg={3}>
                 <label>
                   <input
                     defaultChecked
+                    className="me-2"
                     type="radio"
                     name="roundNum"
                     value={12}
@@ -120,7 +122,7 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
                 </label>
               </Col>
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="mt-5 justify-content-md-center">
               <Col lg={5}>
                 <FormInput
                   label="Game Room Name"
@@ -140,12 +142,12 @@ const NewGame = ({ players, setPlayers, round, setRound }) => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </Col>
 
-        <Col className="mb-5">
+        <Col className="mb-5 h-100">
           <div>
             <h3>Players:</h3>
             {players.map((player, index) => {
               return (
-                <Row className="justify-content-md-center">
+                <Row key={index} className="justify-content-md-center">
                   <Col className="justify-content-md-start" lg={3}>
                     Player {index + 1}:
                   </Col>{" "}

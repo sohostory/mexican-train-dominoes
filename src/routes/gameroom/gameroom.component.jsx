@@ -56,6 +56,13 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
     updatedScores[index] = value;
     setRoundScores(updatedScores);
   };
+
+  const handleWinner = (index) => {
+    const updatedScores = [...roundScores];
+    updatedScores[index] = "0";
+    setRoundScores(updatedScores);
+  };
+
   const endRound = async () => {
     if (roundScores.some((score) => score === "")) {
       setErrorMessage("Please enter scores for all players.");
@@ -129,8 +136,16 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
 
           {players.map((player, index) => {
             return (
-              <Row className="justify-content-md-center align-items-center">
-                <Col key={index} lg={3} className="text-start">
+              <Row
+                key={index}
+                className="justify-content-md-center align-items-center"
+              >
+                <Col
+                  key={index}
+                  lg={3}
+                  className="text-start"
+                  onClick={() => handleWinner(index)}
+                >
                   {player.name}
                 </Col>
                 <Col lg={3}>

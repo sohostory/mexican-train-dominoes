@@ -17,7 +17,7 @@ const App = () => {
   const [round, setRound] = useState(12);
 
   return (
-    <div className="app-container">
+    <div className="app-container text-uppercase">
       <Routes>
         <Route index element={<Start />} />
         <Route
@@ -54,7 +54,13 @@ const App = () => {
         />
         <Route
           path="gameroom/:roomName/endgame"
-          element={<EndGame players={players} />}
+          element={
+            <EndGame
+              players={players}
+              setPlayers={setPlayers}
+              setRound={setRound}
+            />
+          }
         />
       </Routes>
     </div>
