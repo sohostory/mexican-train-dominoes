@@ -21,6 +21,7 @@ import double11 from "../../assets/dominoes/double11.gif";
 import double12 from "../../assets/dominoes/double12.gif";
 import { Container, Row, Col } from "react-bootstrap";
 import StandingList from "../../components/standing-list/standing-list.component";
+import DominoCalculator from "../../components/calculator/calculator.component";
 
 const doubleImages = {
   0: double0,
@@ -180,6 +181,8 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
         </Col>
         <Col>
           <StandingList currentStanding={currentStanding} />
+
+          <DominoCalculator />
         </Col>
       </Row>
     </Container>
