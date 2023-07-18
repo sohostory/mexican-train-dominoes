@@ -78,10 +78,11 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
         totalScore: player.totalScore + parseInt(roundScores[index]),
       }));
 
+      const updatedRound = round - 1;
       // Send the updated players data to the server
       await axios.put(
         `${process.env.REACT_APP_SERVER_URL}/api/gameroom/${roomName}`,
-        { players: updatedPlayers }
+        { players: updatedPlayers, round: updatedRound }
       );
 
       setPlayers(updatedPlayers);
@@ -146,7 +147,7 @@ const Gameroom = ({ players, setPlayers, round, setRound }) => {
             return (
               <Row
                 key={index}
-                className="justify-content-md-center align-items-end"
+                className="justify-content-md-center align-items-center"
               >
                 <Col
                   key={index}

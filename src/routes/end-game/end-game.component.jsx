@@ -29,6 +29,8 @@ const EndGame = ({ players, setPlayers, setRound }) => {
   };
 
   const goToMain = () => {
+    setPlayers([]);
+    setRound(12);
     navigate("/");
   };
 

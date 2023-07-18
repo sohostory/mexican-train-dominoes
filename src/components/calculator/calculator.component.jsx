@@ -26,11 +26,8 @@ const DominoCalculator = ({ calculatorVisible }) => {
           <h3>Domino Calculator</h3>
           <Row>
             {[...Array(12)].map((_, index) => (
-              <Col lg={3}>
-                <Button
-                  key={index}
-                  onClick={() => handleButtonClick(index + 1)}
-                >
+              <Col lg={3} key={index}>
+                <Button onClick={() => handleButtonClick(index + 1)}>
                   {index + 1}
                 </Button>
               </Col>

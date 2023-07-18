@@ -77,7 +77,7 @@ app.post("/api/gameroom", async (req, res) => {
 
 app.put("/api/gameroom/:roomname", async (req, res) => {
   const { roomname } = req.params;
-  const { players } = req.body;
+  const { players, round } = req.body;
 
   const gamedata = await loadGameData();
   const gameRoom = gamedata.find((room) => room.roomname === roomname);
@@ -86,7 +86,7 @@ app.put("/api/gameroom/:roomname", async (req, res) => {
     res.status(404).json({ error: "Game room not found" });
     return;
   }
-
+  gameRoom.round = round;
   gameRoom.players = players;
   await saveGameData(gamedata);
   res.json(gameRoom);
